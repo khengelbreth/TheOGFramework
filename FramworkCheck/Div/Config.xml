@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+	<World>
+		<MaxX>
+			100
+		</MaxX>
+		<MaxY>
+			100
+		</MaxY>
+	</World>
+	<Creature>
+		<Name>
+			Jerry Putter
+		</Name>
+		<HitPoints>
+			100
+		</HitPoints>
+	</Creature>
+	<Creature>
+		<Name>
+			The Mountain
+		</Name>
+		<HitPoints>
+			100
+		</HitPoints>
+	</Creature>
+</Configuration>
