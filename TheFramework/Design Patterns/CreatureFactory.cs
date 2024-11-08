@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheFramework.Interfaces;
 using TheFramework.Model.Attack;
 using TheFramework.Model.Creature;
 using TheFramework.Model.Defence;
@@ -11,9 +12,19 @@ namespace TheFramework.Design_Patterns
 {
     public class CreatureFactory : ICreatureFactory
     {
+        private readonly IAttackLibrary _attackLibrary;
+        private readonly IDefenceLibrary _defenceLibrary;
+        private readonly ILootLibrary _lootLibrary;
+
+        public CreatureFactory(IAttackLibrary attackLibrary, IDefenceLibrary defenceLibrary, ILootLibrary lootLibrary)
+        {
+            _attackLibrary = attackLibrary;
+            _defenceLibrary = defenceLibrary;
+            _lootLibrary = lootLibrary;
+        }
         public Creature CreateCreature(string type, string name)
         {
-            var creature = new Creature { Name = name };
+            var creature = new Creature(_attackLibrary, _defenceLibrary, _lootLibrary) { Name = name };
 
             switch (type.ToLower())
             {

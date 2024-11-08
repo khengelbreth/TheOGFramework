@@ -10,16 +10,18 @@ namespace TheFramework.Libraries
 {
     public class DefenceLibrary : IDefenceLibrary
     {
+        /// <summary>
+        /// Applies damage to the creature, reducing hit points based on the best defense item.
+        /// </summary>
+        /// <param name="damage">The incoming damage</param>
+        /// <param name="creature">The creature receiving the hit</param>
         public void ReceiveHit(int damage, Creature creature)
         {
-            int totalDefense = 0;
+            var bestDefense = creature.DefenceItems.OrderByDescending(d => d.ReduceHitPoints).FirstOrDefault();
 
-            foreach (var defense in creature.DefenceItems)
-            {
-                totalDefense += defense.ReduceHitPoints;
-            }
+            int effectiveDefense = bestDefense?.ReduceHitPoints ?? 0;
+            int damageTaken = Math.Max(0, damage - effectiveDefense);
 
-            int damageTaken = Math.Max(0, damage - totalDefense);
             creature.HitPoints -= damageTaken;
             Console.WriteLine($"{creature.Name} received {damageTaken} damage, remaining HP: {creature.HitPoints}");
 

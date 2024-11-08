@@ -42,22 +42,26 @@ namespace FramworkCheck
 
             IDefenceLibrary defenceLibrary = new DefenceLibrary();
             IAttackLibrary attackLibrary = new AttackLibrary(defenceLibrary);
+            ILootLibrary lootLibrary = new LootLibrary();
 
             AttackItem sword = new AttackItem("Sword", 10, 1);
             DefenceItem shield = new DefenceItem("Shield", 8);
+            AttackItem bow = new AttackItem("Bow", 8, 3);
 
-            Creature creature1 = new Creature() { Name = "Jerry Berry the Slaughter", HitPoints = 100 };
-            Creature creature2 = new Creature() { Name = "The Mighty Oak", HitPoints = 120 };
+            Creature creature1 = new Creature(attackLibrary, defenceLibrary, lootLibrary) { Name = "Jerry Berry the Slaughter", HitPoints = 100 };
+            Creature creature2 = new Creature(attackLibrary, defenceLibrary, lootLibrary) { Name = "The Mighty Oak", HitPoints = 120 };
+
+            creature1.Loot(bow);
 
             creature1.AddAttackItem(sword);
             creature2.AddDefenceItem(shield);
 
-            attackLibrary.Hit(sword, creature2, creature1);
+            attackLibrary.Hit(creature1, creature2);
 
             Console.WriteLine("----------------------------------------------------");
             Console.WriteLine("Factory Method Check:\n");
 
-            ICreatureFactory creatureFactory = new CreatureFactory();
+            ICreatureFactory creatureFactory = new CreatureFactory(attackLibrary, defenceLibrary, lootLibrary);
 
             Creature warrior = creatureFactory.CreateCreature("warrior", "Jerry the Brave");
             Creature mage = creatureFactory.CreateCreature("mage", "Gandalf the Wise");
@@ -71,7 +75,7 @@ namespace FramworkCheck
             Console.WriteLine($"{warrior2.Name}, HP: {warrior2.HitPoints}");
 
             Console.WriteLine("------------------------------------------------------");
-            Console.WriteLine("Strategy Method Check:\n");
+            Console.WriteLine("Strategy Method Check and Liskov Check:\n");
 
             warrior.SetAttackStrategy(new MeleeAttack());
             mage.SetAttackStrategy(new RangedAttack());
@@ -80,6 +84,8 @@ namespace FramworkCheck
             warrior.PerformAttack(mage);
             mage.PerformAttack(warrior);
             warrior2.PerformAttack(warrior);
+            Console.WriteLine();
+            warrior.PerformAttack(warrior2);
 
 
             Console.WriteLine("------------------------------------------------------");

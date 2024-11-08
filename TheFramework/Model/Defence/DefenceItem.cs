@@ -17,9 +17,5 @@ namespace TheFramework.Model.Defence
             ReduceHitPoints = reduceHitPoints;
         }
 
-        public override string ToString()
-        {
-            return $"{{{nameof(Name)}={Name}, {nameof(ReduceHitPoints)}={ReduceHitPoints.ToString()}}}";
-        }
     }
 }

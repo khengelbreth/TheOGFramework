@@ -19,9 +19,5 @@ namespace TheFramework.Model.Attack
             Range = range;
         }
 
-        public override string ToString()
-        {
-            return $"{{{nameof(Name)}={Name}, {nameof(Hit)}={Hit.ToString()}, {nameof(Range)}={Range.ToString()}}}";
-        }
     }
 }

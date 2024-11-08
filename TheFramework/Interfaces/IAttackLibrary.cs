@@ -10,6 +10,6 @@ namespace TheFramework.Interfaces
 {
     public interface IAttackLibrary
     {
-        public int Hit(AttackItem attackItem, Creature target, Creature creature);
+        public int Hit(Creature creature, Creature target);
     }
 }
